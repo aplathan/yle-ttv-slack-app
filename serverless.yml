@@ -1,0 +1,21 @@
+service: ttv
+frameworkVersion: '2'
+provider:
+  name: aws
+  stage: dev
+  runtime: nodejs12.x
+  region: eu-west-1
+  environment:
+    SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET_TTV}
+    SLACK_BOT_TOKEN: ${env:SLACK_BOT_TOKEN_TTV}
+    TTV_API_KEY: ${env:TTV_API_KEY}
+functions:
+  slack:
+    handler: app.handler
+    events:
+      - http:
+          path: slack/events
+          method: post
+plugins:
+  - serverless-offline
+
