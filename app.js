@@ -28,23 +28,54 @@ const app = new App({
 const server = awsServerlessExpress.createServer(expressReceiver.app);
 
 
+// Luodaan dictionary sivujen hakusanoista ja niiden mäppäylsistä TTV-sivunmeroihin
+var pageDict = {
+  "etusivu": 100, 
+  "hakemistot": 199,
+  "kotimaa": 102,
+  "ulkomaat": 130,
+  "talous": 160,
+  "sää": 400,
+  "liikenne": 400,
+  "urheilu": 201,
+  "nhl": 235,
+  "änäri": 235,
+  "eurojalkapallo": 600,
+  "jalkapallo": 600,
+  "fudis": 600,
+  "veikkaus": 470,
+  "tv-ohjelmat": 300,
+  "tv": 300,
+  "ohjelmat": 300,
+  "ohjelmaopas": 350,
+  "opas": 350,
+  "alueuutiset": 500,
+  "news": 190,
+  "english": 190,
+  "newsinenglish": 190,
+  "svenska": 700,
+  "påsvenska": 700,
+  "viikkomakasiini": 800,
+  "viikko": 800,
+  "makasiini": 800
+};
 
 
-// Listen for a slash command invocation
+
 app.command('/ttv', async ({ command, ack, say, client, body }) => {
-  // Acknowledge the command request
   await ack();
 
   console.log(command);
   console.log(command.text);
 
   // Parsitaan käyttäjän antamasta komennosta vain ensimmäinen parametri
-  const parameters = command.text;
-  const firstParm = parameters.split(' ')[0];
-  
+  const requestedPage = (command.text).split(' ')[0];
+  console.log(requestedPage);
+  var ttvPage = 100;
+
   // Aloitetaan tutkimalla, onko komennon jälkeen annettu ensimmäinen parametri sana
-  if (isNaN(firstParm)){
-    switch (firstParm) {
+  if (isNaN(ttvPage)){
+    switch (ttvPage) {
       // Vastataan help-komentoon
       case 'help':
         await say(
@@ -59,23 +90,13 @@ app.command('/ttv', async ({ command, ack, say, client, body }) => {
           }
         );
         break;
-      // Mapataan osastojen mahdollisia nimiä sivuihin  
-      case 'etusivu':
-        
-        break;
-      case 'nhl':
-        await say('nhl');
-        break;
-      case 'kotimaa':
-        await say('kotimaa');
-        break;
       default:
         await say('Väärä komento');
     };
   } else {
-      const pageNumber = parseInt(firstParm, 10);
+      const pageNumber = parseInt(requestedPage, 10);
       await say({
-        text: `https://external.api.yle.fi/v1/teletext/images/${pageNumber}/1.png?app_id=ed81168f&app_key=08204b5d92f0245e5e595fea17fe0875`,
+        text: `https://external.api.yle.fi/v1/teletext/images/${pageNumber}/1.png?${process.env.TTV_API_KEY}`,
         replace_original: false,
         response_type: `ephemeral`,
         unfurl_links: true,
