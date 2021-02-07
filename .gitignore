@@ -5,3 +5,6 @@ package-lock.json
 # Serverless
 .serverless
 
+# MacOS
+.DS_Store
+

@@ -1,4 +1,6 @@
-// TTV-appi
+// yle-ttv-slack-app
+// Antti Plathan 6 Feb 2021
+// antti.plathan@gmail.com
 
 const { App, ExpressReceiver } = require('@slack/bolt');
 const awsServerlessExpress = require('aws-serverless-express');
@@ -26,7 +28,6 @@ const app = new App({
 
 // Initialize your AWSServerlessExpress server using Bolt's ExpressReceiver
 const server = awsServerlessExpress.createServer(expressReceiver.app);
-
 
 // Luodaan dictionary sivujen hakusanoista ja niiden mäppäylsistä TTV-sivunmeroihin
 var pageDict = {
@@ -59,8 +60,6 @@ var pageDict = {
   "viikko": 800,
   "makasiini": 800
 };
-
-
 
 app.command('/ttv', async ({ command, ack, say, client, body }) => {
   await ack();
@@ -100,8 +99,6 @@ app.command('/ttv', async ({ command, ack, say, client, body }) => {
       }
      
   
-
-  
   if (ttvPage) {
     // Näytettävä sivu tiedetään, yritetään näyttää se
     console.log("Perillä ollaan, yritetään näyttää pyydetty sivunumero: ");
@@ -118,35 +115,21 @@ app.command('/ttv', async ({ command, ack, say, client, body }) => {
     // Kelvollista TTV-sivua ei voitu asettaa, näytetään helppi käyttäjälle
     console.log("Loppuun päädyttiin, mutta käyttäjän syötteestä ei tunnistettu oikeaa sivunumeroa tai osastoa, tai pyyntö oli help:")
     console.log(ttvPage);
-    
-    await say(
-      {
-        "response_type": "ephemeral",
-        "text": "Näin käytät /ttv -komentoa:",
-        "attachments":[
-            {
-                "text":"Anna haettavan TTV-sivun numero `/ttv 100` tai osaston nimi `/ttv kotimaa`.\nOsastojen nimet ovat `etusivu`, `hakemistot`, `kotimaa`, `ulkomaat`, `talous`, `sää`, `liikenne`, `urheilu`, `nhl`, `eurojalkapallo`, `veikkaus`, `tv-ohjelmat`, `ohjelmaopas`, `alueuutiset`, `news`, `svenska`, `viikkomakasiini`.\n"
-            }
-        ]
-      }
-    );
-    
+
+    await say({
+      response_type: 'ephemeral',
+      text: 'Näin käytät /ttv -komentoa:',
+      attachments:[
+          {
+              text:'Anna haettavan TTV-sivun numero `/ttv 100` tai osaston nimi `/ttv kotimaa`.\nOsastojen nimet ovat `etusivu`, `hakemistot`, `kotimaa`, `ulkomaat`, `talous`, `sää`, `liikenne`, `urheilu`, `nhl`, `eurojalkapallo`, `veikkaus`, `tv-ohjelmat`, `ohjelmaopas`, `alueuutiset`, `news`, `svenska`, `viikkomakasiini`.\n'
+          }]
+    });    
   }
 
   
 
 
 });  
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -165,5 +148,3 @@ module.exports.handler = (event, context) => {
   console.log('⚡️ Bolt app is running!');
   awsServerlessExpress.proxy(server, event, context);
 };
-
-

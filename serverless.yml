@@ -1,4 +1,6 @@
-service: ttv
+# serverless.yml
+# https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+service: yle-ttv-slack-app
 frameworkVersion: '2'
 provider:
   name: aws
