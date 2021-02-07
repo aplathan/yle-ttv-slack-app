@@ -6,7 +6,7 @@ This Yle TTV Slack App is Based on "Getting Started ⚡️ Bolt for JavaScript t
 
 ## Overview
 
-This is a Slack app built with the [Bolt for JavaScript framework][2].
+This is a Slack app built with the [Bolt for JavaScript framework][2]. When deployed with the included configuration, a CloudFormation Stack is created including the main app as an AWS Lambda Function, API Gateway for the requests from Slack, and CloudWatch Logs for monitoring the app.
 
 ## Running locally
 
