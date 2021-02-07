@@ -1,10 +1,7 @@
 # yle-ttv-slack-app
 
-# This Yle TTV Slack App is Based on "Getting Started ⚡️ Bolt for JavaScript tutorial.
-# This is a private project that has no ties with Yleisradio Oy with the
-# exception that is uses Yle's public API to fetch Yle Teksti-TV pages.
-# Tha Yle in the project name simply implies that instead of being a generic
-# Teletext app this can only be used to view comtent from Yle.
+This Yle TTV Slack App is Based on "Getting Started ⚡️ Bolt for JavaScript tutorial. This is a private project that has no ties with Yleisradio Oy with the exception that is uses Yle's public API to fetch Yle Teksti-TV pages. The Yle in the project name simply implies that instead of being a generic Teletext app this can only be used to view comtent from Yle.
+
 > Slack app example from 📚 [Getting started with Bolt for JavaScript tutorial][1]
 
 ## Overview
